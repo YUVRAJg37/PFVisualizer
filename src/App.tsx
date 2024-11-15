@@ -6,6 +6,7 @@ import genericStore from "./store/GenericStore";
 import { useThree } from "@react-three/fiber";
 import CellDataSelector from "./components/CellDataSelector";
 import CellSolver from "./components/CellSolver";
+import MatrixCreator from "./components/MatrixCreator";
 
 function App() {
   const { camera } = useThree();
@@ -13,13 +14,13 @@ function App() {
 
   const { rows, cols } = useControls({
     rows: {
-      value: 25,
+      value: 10,
       step: 1,
       max: 100,
       min: 1,
     },
     cols: {
-      value: 40,
+      value: 10,
       step: 1,
       max: 100,
       min: 1,
@@ -33,16 +34,13 @@ function App() {
     }
   }, [camera]);
 
-  useEffect(() => {
-    console.log(cellsData);
-  }, [cellsData]);
-
   return (
     <>
       <ambientLight intensity={0.25} />
       <directionalLight position={[0, 10, 0]} intensity={1} />
       <pointLight position={[-10, -10, -10]} decay={0} intensity={Math.PI} />
       <CellDataSelector />
+      <MatrixCreator />
       <Grid rows={rows} cols={cols} />
       {cellsData.map((cellData, index) => (
         <CellSolver

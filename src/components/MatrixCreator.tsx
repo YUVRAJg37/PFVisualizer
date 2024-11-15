@@ -1,15 +1,23 @@
 import { useShallow } from "zustand/shallow";
 import genericStore from "../store/GenericStore";
+import { button, useControls } from "leva";
 
 function MatrixCreator() {
-  const { setPathMatrix, cellsData } = genericStore(
+  const { setPathMatrix, rowRange, colRange } = genericStore(
     useShallow((state) => ({
-      setPathMatrix: state.setPathMatrix,
-      cellsData: state.cellsData,
+      updatePathMatrix: state.updatePathMatrix,
+      rowRange: state.rowRange,
+      colRange: state.colRange,
     }))
   );
 
-  const updateMatrixData = () => {};
+  const updateMatrixData = () => {
+    console.log(rowRange, colRange);
+  };
+
+  useControls({
+    foo: button(() => updateMatrixData()),
+  });
 
   return null;
 }
